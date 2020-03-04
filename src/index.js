@@ -4,6 +4,7 @@ import "./index.css";
 import ComposerQuiz from "./ComposerQuiz";
 import { shuffle, sample } from "underscore";
 import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter, Route } from "react-router-dom";
 
 const composers = [
   {
@@ -115,6 +116,10 @@ const composers = [
   }
 ];
 
+function App() {
+  return <ComposerQuiz {...state} onAnswerSelected={onAnswerSelected} />;
+}
+
 function getTurnData(composers) {
   const allWorks = composers.reduce(function(acc, currentVal) {
     return acc.concat(currentVal.works);
@@ -135,6 +140,15 @@ function onAnswerSelected(answer) {
   render();
 }
 
+function AddComposerForm({ match }) {
+  return (
+    <div>
+      <h1>Add composer</h1>
+      <p>{JSON.stringify(match)}</p>
+    </div>
+  );
+}
+
 const state = {
   turnData: getTurnData(composers),
   highlight: ""
@@ -142,7 +156,12 @@ const state = {
 
 function render() {
   ReactDOM.render(
-    <ComposerQuiz {...state} onAnswerSelected={onAnswerSelected} />,
+    <BrowserRouter>
+      <>
+        <Route exact path="/" component={App} />
+        <Route path="/add" component={AddComposerForm} />
+      </>
+    </BrowserRouter>,
     document.getElementById("root")
   );
 }
