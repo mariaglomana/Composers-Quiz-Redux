@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import "./AddComposerForm.css";
 
 class ComposerForm extends React.Component {
@@ -83,4 +85,15 @@ function AddComposerForm({ match, onAddComposer }) {
   );
 }
 
-export default AddComposerForm;
+function mapDispatchToProps(dispatch, props) {
+  return {
+    onAddComposer: composer => {
+      dispatch({ type: "ADD_COMPOSER", composer });
+      props.history.push("/");
+    }
+  };
+}
+
+export default withRouter(
+  connect(() => {}, mapDispatchToProps)(AddComposerForm)
+);
