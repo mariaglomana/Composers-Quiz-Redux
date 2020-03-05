@@ -65,8 +65,19 @@ Turn.propTypes = {
   highlight: PropTypes.string.isRequired
 };
 
-function Continue() {
-  return <div />;
+function Continue({ show, onContinue }) {
+  return (
+    <div className="row continue">
+      {show ? (
+        <div className="col-11">
+          <button
+            className="btn btn-primary btn-lg float-right continue"
+            onClick={onContinue}
+          />
+        </div>
+      ) : null}
+    </div>
+  );
 }
 
 function Footer() {
@@ -85,7 +96,7 @@ function Footer() {
   );
 }
 
-function ComposerQuiz({ turnData, highlight, onAnswerSelected }) {
+function ComposerQuiz({ turnData, highlight, onAnswerSelected, onContinue }) {
   return (
     <div className="container-fluid">
       <Hero />
@@ -94,7 +105,7 @@ function ComposerQuiz({ turnData, highlight, onAnswerSelected }) {
         highlight={highlight}
         onAnswerSelected={onAnswerSelected}
       />
-      <Continue />
+      <Continue show={highlight === "correct"} onContinue={onContinue} />
       <p>
         <Link to="/add">Add a composer</Link>
       </p>

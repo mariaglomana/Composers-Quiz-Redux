@@ -1,0 +1,12 @@
+.AddComposerForm {
+  width: 80%;
+  margin: 50px 10%;
+}
+
+.AddComposerForm__input {
+  margin-bottom: 20px;
+}
+
+.AddComposerForm__input > label {
+  display: block;
+}

@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import AddComposerForm from "./AddComposerForm";
 import ComposerQuiz from "./ComposerQuiz";
 import { shuffle, sample } from "underscore";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, withRouter } from "react-router-dom";
 
 const composers = [
   {
@@ -116,8 +117,23 @@ const composers = [
   }
 ];
 
+function resetState() {
+  return { turnData: getTurnData(composers), highlight: "" };
+}
+
+let state = resetState();
+
 function App() {
-  return <ComposerQuiz {...state} onAnswerSelected={onAnswerSelected} />;
+  return (
+    <ComposerQuiz
+      {...state}
+      onAnswerSelected={onAnswerSelected}
+      onContinue={() => {
+        state = resetState();
+        render();
+      }}
+    />
+  );
 }
 
 function getTurnData(composers) {
@@ -140,26 +156,21 @@ function onAnswerSelected(answer) {
   render();
 }
 
-function AddComposerForm({ match }) {
-  return (
-    <div>
-      <h1>Add composer</h1>
-      <p>{JSON.stringify(match)}</p>
-    </div>
-  );
-}
-
-const state = {
-  turnData: getTurnData(composers),
-  highlight: ""
-};
+const ComposerWrapper = withRouter(({ history }) => (
+  <AddComposerForm
+    onAddComposer={composer => {
+      composers.push(composer);
+      history.push("/");
+    }}
+  />
+));
 
 function render() {
   ReactDOM.render(
     <BrowserRouter>
       <>
         <Route exact path="/" component={App} />
-        <Route path="/add" component={AddComposerForm} />
+        <Route path="/add" component={ComposerWrapper} />
       </>
     </BrowserRouter>,
     document.getElementById("root")
