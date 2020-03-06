@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import "./App.css";
 import "./bootstrap.min.css";
 import PropTypes from "prop-types";
@@ -96,7 +97,28 @@ function Footer() {
   );
 }
 
-function ComposerQuiz({ turnData, highlight, onAnswerSelected, onContinue }) {
+function mapStateToProps(state) {
+  return {
+    turnData: state.turnData,
+    highlight: state.highlight
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onAnswerSelected: answer => {
+      dispatch({ type: "ANSWER_SELECTED", answer });
+    },
+    onContinue: () => {
+      dispatch({ type: "CONTINUE" });
+    }
+  };
+}
+
+const ComposerQuiz = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(function({ turnData, highlight, onAnswerSelected, onContinue }) {
   return (
     <div className="container-fluid">
       <Hero />
@@ -112,6 +134,6 @@ function ComposerQuiz({ turnData, highlight, onAnswerSelected, onContinue }) {
       <Footer />
     </div>
   );
-}
+});
 
 export default ComposerQuiz;
