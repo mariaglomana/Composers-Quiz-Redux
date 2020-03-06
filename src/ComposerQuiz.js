@@ -1,15 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import "./App.css";
-import "./bootstrap.min.css";
+import "./App.scss";
 import PropTypes from "prop-types";
 
 function Hero() {
   return (
-    <div className="jumbotron col-10 offset-1">
-      <h1>Composer Quiz</h1>
-      <p>Select the work written by the composer shown</p>
+    <div className="hero jumbotron jumbotron-fluid col-10 offset-1">
+      <div className="hero__wrapper">
+        <img
+          className="hero__logo"
+          alt="conductor logo"
+          src="./images/conductor.png"
+        />
+        <h1 className="hero__title">Composers Quiz</h1>
+        <p>Select the work written by the composer shown</p>
+      </div>
+      {/* <button className="hero__addBtn"> */}
+      <button className="hero__addBtn btn ">
+        {" "}
+        <Link to="/add">Add a composer</Link>
+      </button>
     </div>
   );
 }
@@ -39,7 +50,7 @@ function Turn({ composer, works, highlight, onAnswerSelected }) {
 
   return (
     <div
-      className="row turn"
+      className="row turn__wrapper col-10 offset-1"
       style={{ backgroundColor: highlightToBgColor(highlight) }}
     >
       <div className="col-4 offset-1">
@@ -68,31 +79,32 @@ Turn.propTypes = {
 
 function Continue({ show, onContinue }) {
   return (
-    <div className="row continue">
+    <div className="continue">
       {show ? (
-        <div className="col-11">
+        <div className="">
           <button
-            className="btn btn-primary btn-lg float-right continue"
+            className="continue__btn btn btn-primary  col-1 float-right "
             onClick={onContinue}
-          />
+          >
+            Continue
+          </button>
         </div>
       ) : null}
     </div>
   );
 }
 
-function Footer() {
+function Footer({ highlight, onContinue }) {
   return (
-    <div id="footer" className="row">
-      <div className="col-12">
-        <p className="text-muted credit">
-          All images are from{" "}
-          <a href="http://commons.wikimedia.org/wiki/Main_Page">
-            Wikimedia Commons
-          </a>{" "}
-          and are in the public domain
-        </p>
-      </div>
+    <div id="footer" className="footer col-10 offset-1 row">
+      <small className="text-muted footer__credit">
+        All images are from{" "}
+        <a href="http://commons.wikimedia.org/wiki/Main_Page">
+          Wikimedia Commons
+        </a>{" "}
+        and are in the public domain
+      </small>
+      <Continue show={highlight === "correct"} onContinue={onContinue} />
     </div>
   );
 }
@@ -120,18 +132,14 @@ const ComposerQuiz = connect(
   mapDispatchToProps
 )(function({ turnData, highlight, onAnswerSelected, onContinue }) {
   return (
-    <div className="container-fluid">
+    <div className="container-fluid quiz-wrapper">
       <Hero />
       <Turn
         {...turnData}
         highlight={highlight}
         onAnswerSelected={onAnswerSelected}
       />
-      <Continue show={highlight === "correct"} onContinue={onContinue} />
-      <p>
-        <Link to="/add">Add a composer</Link>
-      </p>
-      <Footer />
+      <Footer highlight={highlight} onContinue={onContinue} />
     </div>
   );
 });

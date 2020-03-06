@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import "./AddComposerForm.css";
+import "./AddComposerForm.scss";
 
 class ComposerForm extends React.Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class ComposerForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="AddComposerForm">
         <div className="AddComposerForm__input">
           <label htmlFor="name">Name</label>
           <input

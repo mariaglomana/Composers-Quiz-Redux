@@ -2,7 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import * as Redux from "redux";
 import * as ReactRedux from "react-redux";
+import "./bootstrap.min.css";
 import "./index.css";
+import "./AddComposerForm.scss";
+
 import AddComposerForm from "./AddComposerForm";
 import ComposerQuiz from "./ComposerQuiz";
 import { shuffle, sample } from "underscore";

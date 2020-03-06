@@ -1,0 +1,78 @@
+/* .turn > div {
+  height: 400px;
+} */
+
+.turn {
+  &__wrapper {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    max-height: 410px;
+    & > div {
+      height: 400px;
+    }
+  }
+}
+
+.composerImage {
+  max-height: 100%;
+  max-height: 370px;
+}
+
+.answer {
+  background-color: #f0f7fd;
+  border-color: #d0e3f0;
+  margin-bottom: 20px;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid #d0e3f0;
+  cursor: pointer;
+  &:hover {
+    background-color: #d0e3f0;
+  }
+}
+
+.quiz-wrapper {
+  padding: 15px;
+}
+
+.hero {
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+
+  &__logo {
+    width: 5.5rem;
+    float: right;
+  }
+  &__wrapper {
+    max-width: 475px;
+  }
+  &__title {
+    font-family: "Libre Baskerville", serif;
+    font-weight: 700;
+    display: inline-block;
+  }
+  &__addBtn {
+    float: right;
+    max-height: 2.5rem;
+    align-self: baseline;
+    color: #007bff;
+    border-color: #007bff;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+}
+
+.continue {
+  padding-top: 20px;
+  width: 100%;
+  &__btn {
+    max-height: 2.5rem;
+  }
+}
