@@ -15,11 +15,25 @@ class ComposerForm extends React.Component {
     this.onFieldChange = this.onFieldChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAddWork = this.handleAddWork.bind(this);
+    this.onUploadImage = this.onUploadImage.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
     this.props.onAddComposer(this.state);
+  }
+
+  onUploadImage(event) {
+    const files = event.target.files;
+    if (files.length > 0) {
+      const reader = new FileReader();
+      reader.readAsDataURL(files[0]);
+      reader.onload = ev => {
+        this.setState({
+          imageUrl: ev.target.result
+        });
+      };
+    }
   }
 
   onFieldChange(event) {
@@ -48,12 +62,18 @@ class ComposerForm extends React.Component {
           />
         </div>
         <div className="AddComposerForm__input">
-          <label htmlFor="imageUrl">Image URL</label>
+          <button>
+            <img src="/images/camera.svg" className="icon" alt="Subir imagen" />
+          </button>
+
           <input
-            type="text"
+            type="file"
             name="imageUrl"
-            value={this.state.imageUrl}
-            onChange={this.onFieldChange}
+            id="file"
+            className="file"
+            // disabled={}
+            // value={this.state.imageUrl}
+            onChange={this.onUploadImage}
           />
         </div>
         <div className="AddComposerForm__input">

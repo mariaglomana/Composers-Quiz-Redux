@@ -19,27 +19,32 @@ function reducer(
   state = { composers, turnData: getTurnData(composers), highlight: "" },
   action
 ) {
+  let reducedValue;
   switch (action.type) {
     case "ANSWER_SELECTED":
       const isCorrect = state.turnData.composer.works.some(
         work => work === action.answer
       );
-      return Object.assign({}, state, {
+      reducedValue = Object.assign({}, state, {
         highlight: isCorrect ? "correct" : "wrong"
       });
+      break;
     case "CONTINUE":
-      return Object.assign({}, state, {
+      reducedValue = Object.assign({}, state, {
         highlight: "",
         turnData: getTurnData(state.composers)
       });
+      break;
     case "ADD_COMPOSER":
-      return Object.assign({}, state, {
+      reducedValue = Object.assign({}, state, {
         composers: state.composers.concat([action.composer])
       });
+      break;
     default:
-      return state;
+      reducedValue = state;
   }
-  return state;
+
+  return reducedValue;
 }
 
 let store = Redux.createStore(

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "./App.scss";
 import PropTypes from "prop-types";
+const colorGreen = "#A3CB38";
+const colorRed = "#EA2027";
 
 function Hero() {
   return (
@@ -42,8 +44,8 @@ function Turn({ composer, works, highlight, onAnswerSelected }) {
   function highlightToBgColor(highlight) {
     const mapping = {
       none: "",
-      correct: "green",
-      wrong: "red"
+      correct: colorGreen,
+      wrong: colorRed
     };
     return mapping[highlight];
   }
